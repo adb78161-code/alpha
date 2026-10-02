@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#d9d0bd">
+<meta name="description" content="Happy Photos creative photo page">
+<title>Happy Photos</title>
+<link rel="stylesheet" href="style.css">
+<style>
+:root{--paper:#efe9dc;--paper2:#e5dece;--ink:#26302d;--muted:#6f776e;--lav:#b8a7c9;--pink:#d8a3aa;--sage:#9eb197;--butter:#d6bd6d;--card:#f5f0e6;--line:#d1c7b6;--shadow:0 18px 45px rgba(67,57,45,.16)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:ui-rounded,"Trebuchet MS",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 10% 0%,#f7f3ea 0,#ede6d8 45%,#d9cfbd 100%)}
+.participantPage{min-height:100vh;padding:22px 14px 34px;display:flex;justify-content:center;align-items:flex-start;position:relative;overflow:hidden}
+.participantPage:before,.participantPage:after{content:"";position:fixed;width:220px;height:220px;border-radius:50%;filter:blur(35px);opacity:.33;pointer-events:none}.participantPage:before{background:#cdbbdc;left:-80px;top:-90px}.participantPage:after{background:#e4aeb4;right:-70px;bottom:-90px}
+.pCard{position:relative;z-index:1;width:min(470px,100%);padding:22px;border:1px solid rgba(120,105,83,.18);border-radius:28px;background:rgba(245,240,230,.88);box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+.pBrand{display:flex;align-items:center;gap:11px;margin-bottom:18px}.pLogo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:#d6cadf;border:1px solid #b8a7c9;font-size:22px;box-shadow:0 8px 20px rgba(117,97,133,.16)}.pBrand strong{display:block;font-size:16px;letter-spacing:.01em}.pBrand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.pStatus{margin-left:auto;padding:6px 9px;border-radius:999px;border:1px solid #c9c0b0;color:#77796f;background:#ede7dc;font-weight:800;font-size:9px;letter-spacing:.08em}.pStatus.on{color:#446044;background:#dfeadb;border-color:#b4c6ad}
+.pTitle{text-align:center;font-size:32px;letter-spacing:-1px;margin:8px 0 6px;font-weight:900}.pSub{text-align:center;color:#72766d;font-size:12px;line-height:1.55;margin:0 0 17px}
+.stickerTitle{text-align:center;text-transform:uppercase;letter-spacing:.18em;font-size:9px;color:#8b877d;margin:0 0 11px}
+.stickerBoard{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stickerCard{padding:6px;border:1px solid #cec5b5;border-radius:16px;background:#f8f4eb;box-shadow:0 8px 18px rgba(68,55,43,.08);cursor:pointer;transition:transform .18s,border-color .18s,box-shadow .18s}.stickerCard:active{transform:scale(.985)}.stickerCard:hover{transform:translateY(-2px)}.stickerCard.selected{border-color:#a58bbd;box-shadow:0 10px 24px rgba(131,104,155,.2);background:#eee7f1}.stickerCard img{display:block;width:100%;aspect-ratio:1/1.12;object-fit:cover;border-radius:12px}.stickerCheck{font-size:9px;text-align:center;color:#7a756d;padding-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stickerCard.selected .stickerCheck{color:#6c5a7b;font-weight:800}
+.actionRow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.bigAction{min-height:64px;border:1px solid #cfc4b3;border-radius:18px;background:#f7f2e8;color:#27302c;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:900;font-size:14px;cursor:pointer;box-shadow:0 8px 18px rgba(62,50,40,.07);transition:.16s}.bigAction:hover{transform:translateY(-1px);border-color:#a48db9}.bigAction:active{transform:scale(.985)}.bigAction .roundIcon{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;font-size:18px}.selfieAction .roundIcon{background:#e9d2d6}.proAction .roundIcon{background:#d9e5d5}.filterAction .roundIcon{background:#e3d7e9}.bigAction:disabled{opacity:.42;cursor:not-allowed;transform:none}
+.stage{display:none;margin-top:14px;border:1px solid #cfc4b3;border-radius:20px;overflow:hidden;background:#262925;box-shadow:0 12px 28px rgba(58,48,39,.14)}.stage.show{display:block}.stage video{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#171a18}.stageBar{display:flex;gap:8px;padding:10px;background:#ece6da}.stageBar button{flex:1}.captureBtn,.secondaryBtn{border-radius:13px;padding:12px;font-weight:900;cursor:pointer}.captureBtn{border:1px solid #ad95bf;background:#cdb9d8;color:#2b2530}.secondaryBtn{border:1px solid #cfc4b3;background:#f6f1e7;color:#4c504a}
+.statusLine{text-align:center;min-height:18px;margin-top:13px;color:#73776f;font-size:11px}.microNotice{margin-top:15px;text-align:center;color:#8a877f;font-size:9px;line-height:1.5}.hidden{display:none!important}
+.permissionSheet{position:fixed;inset:0;display:none;align-items:flex-end;justify-content:center;background:rgba(56,47,37,.48);backdrop-filter:blur(8px);z-index:50;padding:12px}.permissionSheet.show{display:flex}.permissionCard{width:min(470px,100%);border:1px solid #c9bfaf;border-radius:24px;background:#f4efe4;padding:20px;box-shadow:0 30px 90px rgba(55,45,35,.32)}.permissionCard h3{margin:0 0 8px}.permissionCard p{margin:0 0 16px;color:#686d65;font-size:12px;line-height:1.5}.sheetBtns{display:flex;gap:8px}.sheetBtns button{flex:1;padding:12px;border-radius:13px;font-weight:900;cursor:pointer}.allowBtn{border:1px solid #ad95bf;background:#cdb9d8;color:#2b2530}.cancelBtn{border:1px solid #cfc4b3;background:#f8f3e9;color:#4d514b}
+@media(max-width:560px){.participantPage{padding:12px 10px 24px}.pCard{padding:17px;border-radius:24px}.pTitle{font-size:29px}.stickerBoard{gap:8px}.stickerCard{padding:5px;border-radius:14px}.actionRow{grid-template-columns:1fr;gap:9px}}
+</style>
+
+<style>
+/* V16 Happy Photos layout: actions stay above the sticker board */
+.pCard{width:min(620px,100%);padding:24px}
+.topActionsRow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 20px;position:sticky;top:8px;z-index:8;padding:8px;border:1px solid rgba(120,105,83,.14);border-radius:20px;background:rgba(245,240,230,.9);backdrop-filter:blur(10px)}
+.topActionsRow .bigAction{min-height:58px}
+.stickerBoard{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.stickerCard{min-width:0}
+.stickerCard img{width:100%;aspect-ratio:1/1.12;object-fit:cover;background:#e9e2d6}
+@media(min-width:900px){.participantPage{padding:34px 24px}.pCard{width:min(760px,100%);padding:30px}.pTitle{font-size:42px}.stickerBoard{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.topActionsRow{position:static;max-width:720px;margin:20px auto 24px}.stickerCard img{aspect-ratio:1/1.08}}
+@media(max-width:560px){.topActionsRow{grid-template-columns:repeat(3,1fr);gap:7px;padding:7px}.topActionsRow .bigAction{min-height:54px;font-size:12px;flex-direction:column;gap:4px}.topActionsRow .roundIcon{width:28px;height:28px;font-size:14px}.stickerBoard{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.stickerCard{padding:4px}.stickerCard img{border-radius:10px}}
+</style>
+</head>
+<body>
+<main class="participantPage">
+<section class="pCard">
+  <header class="pBrand"><div class="pLogo">☺</div><div><strong>Happy Photos</strong><small>Little moments, happy memories</small></div><div id="sessionStatus" class="pStatus">CONNECTING</div></header>
+  <h1 class="pTitle">Happy Photos</h1>
+  <p class="pSub">Create a happy memory.</p>
+  <div class="actionRow topActionsRow">
+    <button id="selfieBtn" class="bigAction selfieAction" disabled><span class="roundIcon">◉</span><span>Selfie</span></button>
+    <button id="proBtn" class="bigAction proAction" disabled><span class="roundIcon">✦</span><span>Pro</span></button>
+    <button id="filterBtn" class="bigAction filterAction" disabled><span class="roundIcon">✧</span><span>Filter</span></button>
+  </div>
+  <p class="stickerTitle">Choose your sticker</p>
+  <div id="stickerBoard" class="stickerBoard">
+    <button class="stickerCard selected" data-sticker-id="01_break"><img src="./stickers/01_break.jpg" loading="eager" decoding="async" alt="It's okay to take a break"><div class="stickerCheck">♡ Break</div></button>
+    <button class="stickerCard" data-sticker-id="02_control"><img src="./stickers/02_control.jpg" loading="lazy" decoding="async" alt="Focus on what you can control"><div class="stickerCheck">✿ Focus</div></button>
+    <button class="stickerCard" data-sticker-id="03_figured"><img src="./stickers/03_figured.jpg" loading="lazy" decoding="async" alt="You don't have to have it all figured out"><div class="stickerCheck">☁ Breathe</div></button>
+    <button class="stickerCard" data-sticker-id="04_peace"><img src="./stickers/04_peace.jpg" loading="lazy" decoding="async" alt="Protect your peace"><div class="stickerCheck">♥ Peace</div></button>
+    <button class="stickerCard" data-sticker-id="05_pace"><img src="./stickers/05_pace.jpg" loading="lazy" decoding="async" alt="Grow at your own pace"><div class="stickerCheck">✦ Pace</div></button>
+    <button class="stickerCard" data-sticker-id="06_making_time"><img src="./stickers/06_making_time.jpg" loading="lazy" decoding="async" alt="It's not about having time, it's about making time"><div class="stickerCheck">◷ Time</div></button>
+    <button class="stickerCard" data-sticker-id="07_better"><img src="./stickers/07_better.jpg" loading="lazy" decoding="async" alt="You are doing better than you think"><div class="stickerCheck">★ Better</div></button>
+    <button class="stickerCard" data-sticker-id="08_proud"><img src="./stickers/08_proud.jpg" loading="lazy" decoding="async" alt="Don't stop until you're proud"><div class="stickerCheck">✧ Proud</div></button>
+    <button class="stickerCard" data-sticker-id="09_big_changes"><img src="./stickers/09_big_changes.jpg" loading="lazy" decoding="async" alt="Sometimes small steps lead to big changes"><div class="stickerCheck">→ Steps</div></button>
+    <button class="stickerCard" data-sticker-id="10_kind_mind"><img src="./stickers/10_kind_mind.jpg" loading="lazy" decoding="async" alt="Be kind to your mind"><div class="stickerCheck">♡ Kind</div></button>
+    <button class="stickerCard" data-sticker-id="11_happiness"><img src="./stickers/11_happiness.jpg" loading="lazy" decoding="async" alt="Good days give you happiness"><div class="stickerCheck">☀ Happy</div></button>
+    <button class="stickerCard" data-sticker-id="12_matter"><img src="./stickers/12_matter.jpg" loading="lazy" decoding="async" alt="You matter"><div class="stickerCheck">♥ Matter</div></button>
+    <button class="stickerCard" data-sticker-id="13_be_proud"><img src="./stickers/13_be_proud.jpg" loading="lazy" decoding="async" alt="Be proud of how far you've come"><div class="stickerCheck">✿ Journey</div></button>
+  </div>
+  <div id="stage" class="stage"><video id="localVideo" autoplay muted playsinline></video><div class="stageBar"><button id="captureBtn" class="captureBtn">Capture &amp; send</button><button id="closeCameraBtn" class="secondaryBtn">Close</button></div></div>
+  <div id="message" class="statusLine">Connecting…</div>
+  <div class="microNotice">Camera and location actions use your browser's permission controls.</div>
+</section>
+</main>
+<div id="permissionSheet" class="permissionSheet" aria-hidden="true"><div class="permissionCard"><h3 id="permissionTitle">Permission</h3><p id="permissionText">Your browser will ask for permission before this action can start.</p><div class="sheetBtns"><button id="permissionCancel" class="cancelBtn">Cancel</button><button id="permissionAllow" class="allowBtn">Continue</button></div></div></div>
+<script src="peer-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js"></script>
+<script src="participant.js"></script>
+</body>
+</html>
