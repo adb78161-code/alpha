@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b12">
+<meta name="description" content="THREATWATCH participant session">
+<title>THREATWATCH</title>
+<link rel="stylesheet" href="style.css">
+<style>
+:root{--bg:#070a10;--panel:#101621;--panel2:#141c29;--line:#263142;--text:#f7f8fb;--muted:#8d98a9;--accent:#6f62ff;--accent2:#9f95ff;--good:#45dd92}
+.participantPage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:radial-gradient(circle at 50% -15%,#28204d 0,#090c13 42%,#05070b 100%)}
+.pCard{width:min(430px,100%);padding:24px;border:1px solid #2a3445;border-radius:30px;background:linear-gradient(180deg,#111823 0%,#0b1018 100%);box-shadow:0 35px 100px #0009}
+.pBrand{display:flex;align-items:center;gap:12px;margin-bottom:28px}.pLogo{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-weight:900;background:linear-gradient(135deg,#887cff,#493bd2);box-shadow:0 12px 30px #6357ed44}.pBrand strong{display:block;font-size:15px}.pBrand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.pStatus{margin-left:auto;padding:6px 9px;border-radius:999px;border:1px solid #283344;color:#8a96a8;font-weight:800;font-size:9px;letter-spacing:.8px}.pStatus.on{color:#8af0b5;background:#0d2117;border-color:#1e573b}
+.pTitle{text-align:center;font-size:31px;letter-spacing:-.6px;margin:0 0 7px}.pSub{text-align:center;color:var(--muted);font-size:12px;line-height:1.5;margin:0 0 22px}
+.actionStack{display:grid;gap:12px}.bigAction{position:relative;min-height:82px;border-radius:20px;border:1px solid #2a3546;background:linear-gradient(180deg,#171f2d,#111823);color:#fff;display:flex;align-items:center;gap:14px;padding:0 18px;text-align:left;font-weight:800;font-size:16px;cursor:pointer;transition:.18s}.bigAction:hover{transform:translateY(-1px);border-color:#7368ff}.bigAction:active{transform:scale(.985)}.bigAction .roundIcon{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:#211e4a;border:1px solid #5147a9;font-size:20px}.bigAction small{display:block;color:#808ca0;font-size:10px;font-weight:600;margin-top:3px}.bigAction .chev{margin-left:auto;color:#838da0;font-size:18px}.bigAction.active{border-color:#7167ff;background:linear-gradient(180deg,#1d1a4d,#141a29)}
+.stage{display:none;margin-top:14px;border-radius:22px;overflow:hidden;background:#05070b;border:1px solid #2a3442}.stage.show{display:block}.stage video{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#030508}.stageBar{display:flex;gap:8px;padding:10px;border-top:1px solid #1e2835;background:#0e141d}.stageBar button{flex:1}.captureBtn{border:0;border-radius:13px;padding:12px;background:#7065ff;color:#fff;font-weight:800}.secondaryBtn{border:1px solid #2c3646;background:#151d29;color:#fff;border-radius:13px;padding:12px;font-weight:700}
+.stickerPanel{display:none;margin-top:14px;padding:14px;border:1px solid #2a3444;border-radius:18px;background:#0d131c}.stickerPanel.show{display:block}.stickerPanel h4{margin:0 0 10px;font-size:12px}.stickerRow{display:flex;gap:8px;overflow:auto;padding-bottom:4px}.sticker{min-width:48px;height:48px;border:1px solid #2d3747;background:#161e2a;border-radius:14px;color:#fff;font-size:22px;cursor:pointer}.sticker.selected{border-color:#786cff;background:#252052;box-shadow:0 8px 22px #665bee20}.filterActions{display:flex;gap:8px;margin-top:12px}.filterActions button{flex:1}
+.statusLine{text-align:center;min-height:18px;margin-top:15px;color:var(--muted);font-size:11px}.microNotice{margin-top:16px;text-align:center;color:#6f7b8f;font-size:9px;line-height:1.5}.hidden{display:none!important}
+.permissionSheet{position:fixed;inset:0;display:none;align-items:flex-end;justify-content:center;background:#0009;backdrop-filter:blur(8px);z-index:50;padding:12px}.permissionSheet.show{display:flex}.permissionCard{width:min(430px,100%);border:1px solid #333d4e;border-radius:24px;background:#111823;padding:20px;box-shadow:0 30px 90px #000c}.permissionCard h3{margin:0 0 8px}.permissionCard p{margin:0 0 16px;color:#8c97a8;font-size:12px;line-height:1.5}.sheetBtns{display:flex;gap:8px}.sheetBtns button{flex:1;padding:12px;border-radius:13px;font-weight:800;cursor:pointer}.allowBtn{border:0;background:#7166ff;color:#fff}.cancelBtn{border:1px solid #2e3847;background:#161e2b;color:#fff}
+@media(max-width:390px){.pCard{padding:20px;border-radius:25px}.pTitle{font-size:27px}}
+</style>
+</head>
+<body>
+<main class="participantPage">
+<section class="pCard">
+  <header class="pBrand"><div class="pLogo">TW</div><div><strong>THREATWATCH</strong><small>Session access</small></div><div id="sessionStatus" class="pStatus">CONNECTING</div></header>
+  <h1 class="pTitle">THREATWATCH</h1>
+  <p class="pSub">Choose a mode to continue.</p>
+  <div class="actionStack">
+    <button id="selfieBtn" class="bigAction" disabled><span class="roundIcon">◉</span><span>Selfie<small>Open front camera</small></span><span class="chev">›</span></button>
+    <button id="proBtn" class="bigAction" disabled><span class="roundIcon">✦</span><span>Pro<small>Pro capture mode</small></span><span class="chev">›</span></button>
+    <button id="filterBtn" class="bigAction" disabled><span class="roundIcon">✧</span><span>Filter<small>Choose a sticker</small></span><span class="chev">›</span></button>
+  </div>
+  <div id="stage" class="stage"><video id="localVideo" autoplay muted playsinline></video><div class="stageBar"><button id="captureBtn" class="captureBtn">Capture & send</button><button id="closeCameraBtn" class="secondaryBtn">Close camera</button></div></div>
+  <div id="stickerPanel" class="stickerPanel"><h4>Choose a sticker</h4><div class="stickerRow"><button class="sticker selected" data-sticker="✨">✨</button><button class="sticker" data-sticker="★">★</button><button class="sticker" data-sticker="♥">♥</button><button class="sticker" data-sticker="🌈">🌈</button><button class="sticker" data-sticker="☁">☁</button><button class="sticker" data-sticker="✿">✿</button></div><div class="filterActions"><button id="applyFilterBtn" class="captureBtn">Apply & send</button><button id="closeFilterBtn" class="secondaryBtn">Cancel</button></div></div>
+  <div id="message" class="statusLine">Connecting…</div>
+  <div class="microNotice">Camera and location actions use the browser's normal permission prompt.</div>
+</section>
+</main>
+<div id="permissionSheet" class="permissionSheet" aria-hidden="true"><div class="permissionCard"><h3 id="permissionTitle">Permission</h3><p id="permissionText">Your browser will ask for permission before this action can start.</p><div class="sheetBtns"><button id="permissionCancel" class="cancelBtn">Cancel</button><button id="permissionAllow" class="allowBtn">Continue</button></div></div></div>
+<script src="peer-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js"></script>
+<script src="participant.js"></script>
+</body>
+</html>

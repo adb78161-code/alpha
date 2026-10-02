@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b12">
+<meta name="description" content="THREATWATCH professional two-device privacy experiment console">
+<title>THREATWATCH — V12 Console</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brandMark">TW</div><div><strong>THREATWATCH</strong><span>SECURITY LAB · V12</span></div></div>
+    <nav>
+      <a class="navItem active" href="#overview">⌂ <span>Overview</span></a>
+      <a class="navItem" href="#pairing">⌁ <span>Pairing</span></a>
+      <a class="navItem" href="#camera">◉ <span>Camera</span></a>
+      <a class="navItem" href="#location">⌖ <span>Location</span></a>
+      <a class="navItem" href="#photos">▣ <span>Photos</span></a>
+      <a class="navItem" href="#audit">≡ <span>Activity</span></a>
+    </nav>
+    <div class="sideFoot"><span class="dot"></span> Consent-first mode<br><small>Browser permissions enforced</small></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">AUTHORIZED PRIVACY EXPERIMENT</div><h1>Security Console</h1></div>
+      <div class="topActions"><span id="onlineBadge" class="statusBadge neutral">STARTING</span><button id="newBtn" class="btn ghost">＋ New session</button></div>
+    </header>
+
+    <section id="overview" class="heroCard">
+      <div><span class="eyebrow">CONTROL CENTER</span><h2>Two-device workspace</h2><p>Pair a participant device with a temporary session link. Media and location actions are initiated by the participant and transferred peer-to-peer when the browser permits them.</p></div>
+      <div class="heroState"><span id="sessionState">Restoring session…</span><strong id="sessionId">—</strong></div>
+    </section>
+
+    <section class="metrics">
+      <div class="metric"><span>SESSION</span><strong id="sessionMetric">READY</strong><small id="sessionSub">60-minute session</small></div>
+      <div class="metric"><span>DEVICE</span><strong id="deviceStatus">WAITING</strong><small id="deviceSub">No participant connected</small></div>
+      <div class="metric"><span>CONNECTION</span><strong id="connectionQuality">—</strong><small id="latencyText">Waiting for participant</small></div>
+      <div class="metric"><span>EXPIRES</span><strong id="expiryText">60:00</strong><small>Session lifetime</small></div>
+    </section>
+
+    <section class="dashboardGrid">
+      <article id="pairing" class="panel pairingPanel wide">
+        <div class="panelHead"><div><span class="kicker">01 / PAIRING</span><h3>Secure connection</h3></div><span id="qrState" class="tinyStatus">STARTING</span></div>
+        <div class="pairLayout">
+          <div class="qrWrap"><div id="qrcode" class="qrbox"><div class="qrLoading"><span class="loader"></span><b>Preparing QR</b><small>Generating participant link</small></div></div><span class="qrCaption">Scan with Device B</span></div>
+          <div class="pairInfo">
+            <div class="codeCard"><span>PAIR CODE</span><strong id="pairCode">--------</strong><small>Valid for this session</small></div>
+            <div class="urlCard"><span>PARTICIPANT LINK</span><code id="joinUrl">Preparing…</code></div>
+            <div class="buttonRow"><button id="shareBtn" class="btn primary" disabled>Share link</button><button id="copyBtn" class="btn" disabled>Copy link</button></div>
+            <div class="pairControls"><button id="regenerateBtn" class="btn">↻ Regenerate QR</button><button id="endBtn" class="btn danger" disabled>End session</button></div>
+            <div class="securityNote"><span>✓</span><div><b>Participant-controlled access</b><small>Camera and location requests use the browser permission system.</small></div></div>
+          </div>
+        </div>
+      </article>
+
+      <article id="camera" class="panel">
+        <div class="panelHead"><div><span class="kicker">02 / CAMERA</span><h3>Incoming captures</h3></div><span id="cameraPill" class="tinyStatus off">OFF</span></div>
+        <div class="mediaFrame"><img id="remotePhotoPreview" alt="Latest participant capture" hidden><div id="videoEmpty" class="mediaEmpty"><div class="mediaIcon">◉</div><b>No recent capture</b><small>Participant selfies and filtered captures appear here.</small></div><div class="liveTag" id="liveTag" hidden>● NEW</div></div>
+        <div class="panelFoot"><span id="cameraInfo">Waiting for participant capture</span><span class="softStat" id="transferInfo">Ready</span></div>
+      </article>
+
+      <article id="location" class="panel">
+        <div class="panelHead"><div><span class="kicker">03 / LOCATION</span><h3>Participant location</h3></div><div class="headActions"><span id="locationPill" class="tinyStatus off">OFF</span><button id="clearLocationBtn" class="mini dangerMini">Clear</button></div></div>
+        <div class="locationVisual"><div class="mapGrid"></div><div class="pin">⌖</div><div class="mapLabel" id="map">Waiting for participant location.</div></div>
+        <div class="coords"><div><span>LATITUDE</span><strong id="lat">—</strong></div><div><span>LONGITUDE</span><strong id="lon">—</strong></div><div><span>ACCURACY</span><strong id="acc">—</strong></div></div>
+        <div class="panelFoot"><span id="locationInfo">No location received</span><div class="footActions"><button id="openMapBtn" class="btn small" disabled>Open map</button><button id="stopLocationBtn" class="btn danger small" disabled>Stop updates</button></div></div>
+      </article>
+
+      <article class="panel">
+        <div class="panelHead"><div><span class="kicker">04 / DEVICE</span><h3>Connected device</h3></div><span id="participantState" class="tinyStatus off">WAITING</span></div>
+        <div class="deviceCard"><div class="deviceAvatar">◎</div><div><strong id="participantPeer">No device</strong><span id="pairedAt">Not paired</span></div></div>
+        <div class="deviceGrid"><div><span>PLATFORM</span><strong id="participantPlatform">—</strong></div><div><span>BROWSER</span><strong id="participantBrowser">—</strong></div></div>
+        <div class="privacyChecklist"><div><i id="checkConnection">○</i> Secure data channel</div><div><i id="checkCamera">○</i> Camera permission</div><div><i id="checkLocation">○</i> Location permission</div></div>
+      </article>
+
+      <article id="photoSection" class="panel photosPanel wide">
+        <div class="panelHead"><div><span class="kicker">05 / PHOTOS</span><h3>Received captures</h3><small class="panelHint">Stored locally on Device A</small></div><div class="panelTools"><span id="photoCount" class="tinyStatus">0</span><button id="exportPhotosBtn" class="mini">Export</button><button id="clearPhotosBtn" class="mini dangerMini">Delete all</button></div></div>
+        <div class="galleryToolbar"><button id="selectAllBtn" class="mini">Select all</button><button id="deleteSelectedBtn" class="mini dangerMini" disabled>Delete selected</button><span id="selectionInfo" class="mutedText">No selection</span></div>
+        <div id="photos" class="photos"><div class="emptyGallery"><div>▧</div><b>No photos received</b><small>Participant captures will appear here.</small></div></div>
+      </article>
+
+      <article id="audit" class="panel auditPanel wide">
+        <div class="panelHead"><div><span class="kicker">06 / ACTIVITY</span><h3>Session activity</h3></div><button id="clearLog" class="mini">Clear</button></div>
+        <div class="logWrap"><pre id="log"></pre></div>
+      </article>
+    </section>
+    <footer><span>THREATWATCH V12</span><span>WebRTC encrypted transport</span><span>Local session history</span></footer>
+  </main>
+</div>
+
+<div id="photoViewer" class="photoViewer" aria-hidden="true">
+  <div class="viewerBackdrop" data-close-viewer></div>
+  <div class="viewerPanel" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <header class="viewerHead"><div><span class="kicker">REMOTE CAPTURE</span><h3>Image viewer</h3></div><button id="closeViewer" class="viewerClose" aria-label="Close">×</button></header>
+    <div id="viewerStage" class="viewerStage"><img id="viewerImage" alt="Participant captured photo"></div>
+    <div class="viewerControls"><button id="prevPhoto" class="btn">‹ Prev</button><button id="zoomOut" class="btn">−</button><span id="zoomLevel">100%</span><button id="zoomIn" class="btn">＋</button><button id="zoomFit" class="btn">Fit</button><button id="nextPhoto" class="btn">Next ›</button><a id="openOriginal" class="btn" target="_blank" rel="noopener">Open</a></div>
+  </div>
+</div>
+<div id="toast" class="toast" aria-live="polite"></div>
+<script src="peer-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
